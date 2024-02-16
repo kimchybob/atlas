@@ -10,13 +10,6 @@ const useStyles = makeStyles(() => ({
         alignItems: 'center',
         margin: "5%"
     },
-    input:{
-        // width: '100%',
-        // height: '100%',
-        // display: 'flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-    },
     searchButton: {
         width: 'auto',
         height: '100%',
@@ -26,9 +19,6 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-// interface Props {
-//     onSearch: (term: string) => void;
-// }
 
 export default function SearchBar({ onSearch }: any) {
     const classes = useStyles();
@@ -40,13 +30,16 @@ export default function SearchBar({ onSearch }: any) {
     };
 
     const handleSearch = () => {
-        onSearch(searchTerm)
-        console.log(searchTerm)
+        if (searchTerm){
+            onSearch(searchTerm)
+            console.log(searchTerm)
+        }
     }
 
     return (
         <div className={classes.searchBar}>
             <Grid container spacing={1} >
+
                 <Grid item xs={10}>
                     <TextField 
                         label="Keyword"
@@ -56,6 +49,7 @@ export default function SearchBar({ onSearch }: any) {
                         fullWidth
                     />
                 </Grid>
+
                 <Grid item xs={1}>
                     <Button 
                         variant="contained" 
@@ -65,6 +59,7 @@ export default function SearchBar({ onSearch }: any) {
                         Search
                     </Button>
                 </Grid>
+                
             </Grid>
         </div>
     );
