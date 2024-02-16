@@ -1,24 +1,26 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SearchBar from './components/SearchBar';
+import { useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [results, setResults] = useState<any[]>([]);
+
+  const onSearch = (keyword: string) => {
+    axios.get(`http://bie.ala.org.au/ws/search.json?amp;facets=idxtype,rank,speciesGroup,imageAvailable&rows=100&q=${keyword}`)
+      .then(response => {
+        setResults(response.data.searchResults.results);
+        console.log(results);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBar onSearch={onSearch} />
     </div>
   );
 }
