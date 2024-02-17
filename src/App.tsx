@@ -21,7 +21,7 @@ function App() {
   */
   useEffect(() => {
     if(searchTerm){
-      refresh();
+      refreshList();
     }
   }, [curPage]); 
 
@@ -38,15 +38,15 @@ function App() {
     //only call api when a keyword is inputed
     if(searchTerm){
       if(curPage > 1){
-        setCurPage(1); //refresh will be involked by useEffect of curPage, to avoid twice render
+        setCurPage(1); //refreshList will be involked by useEffect of curPage, to avoid twice render
         setStartOffset(0); 
       }
-      else  refresh();
+      else  refreshList();
     }
   }, [searchTerm]); 
 
 
-  const refresh = () => {
+  const refreshList = () => {
       axios.get(`http://bie.ala.org.au/ws/search.json?sort=scientificName&dir=desc&q=${searchTerm}&start=${startOffset}`)
       .then(response => {
         setResults(response.data?.searchResults?.results);
@@ -59,11 +59,50 @@ function App() {
       });
   };
 
+  const toCsv = (speciesArray: any[]) => {
+    const keys = ["id","guid","kingdom","kingdomGuid","scientificName","author","imageUrl"];
+    const header = keys.join(',') + '\r\n';
+    const rows = speciesArray.map((row) => {
+      return keys.map((key) => {
+        let value = row[key];
+        // If the value contains a comma, encapsulate it within quotes
+        if (typeof value === 'string' && value.includes(',')) {
+          value = `"${value}"`;
+        }
+        return value;
+      }).join(',');
+    }).join('\r\n');
+    return header + rows;
+  }
+
+  const downloadCSV = (csvData: string) => {
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'species.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownload = () => {
+    axios.get(`http://bie.ala.org.au/ws/search.json?sort=scientificName&dir=desc&q=${searchTerm}&pageSize=100`)
+      .then(response => {
+        let speciesArray = response.data?.searchResults?.results;
+        if(speciesArray){ //avoid unexpected payload causing undefined
+          downloadCSV(toCsv(speciesArray));
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurPage(value);
     setStartOffset((value-1)*10);
-    console.log(value);
   };
 
   return (
@@ -73,7 +112,7 @@ function App() {
         //only display download button, result list and pagination when there is searching result
         totalRecords > 0 &&
         <div>
-          <Button variant="contained" >Download</Button>
+          <Button variant="contained" onClick={handleDownload}>Download</Button>
           <ResultList searchResults={results}/>
           <Pagination 
             className="pagination" 
