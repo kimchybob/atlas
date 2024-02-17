@@ -21,7 +21,7 @@ export default function ResultList({searchResults}: any) {
                     <ListItem alignItems="flex-start">
 
                         <ListItemAvatar>
-                            <Avatar src={result.imageUrl} />
+                            <Avatar src={result.thumbnailUrl} />
                         </ListItemAvatar>
 
                         <ListItemText
