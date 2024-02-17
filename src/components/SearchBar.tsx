@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -19,22 +19,15 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-
-export default function SearchBar({ onSearch }: any) {
+export default function SearchBar({ setSearchTerm }: any) {
+    const inputRef = useRef<HTMLInputElement>(null);
     const classes = useStyles();
 
-    const [searchTerm, setSearchTerm] = useState<string>('');
-
-    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-    };
-
-    const handleSearch = () => {
-        if (searchTerm){
-            onSearch(searchTerm)
-            console.log(searchTerm)
+    const handleClick = () => {
+        if (inputRef.current) {
+          setSearchTerm(inputRef.current.value);
         }
-    }
+      };
 
     return (
         <div className={classes.searchBar}>
@@ -44,8 +37,7 @@ export default function SearchBar({ onSearch }: any) {
                     <TextField 
                         label="Keyword"
                         variant="outlined"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
+                        inputRef={inputRef}
                         fullWidth
                     />
                 </Grid>
@@ -54,7 +46,7 @@ export default function SearchBar({ onSearch }: any) {
                     <Button 
                         variant="contained" 
                         className={classes.searchButton}
-                        onClick={handleSearch}
+                        onClick={handleClick}
                     >
                         Search
                     </Button>

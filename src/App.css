@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.pagination {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  margin: 5%;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
