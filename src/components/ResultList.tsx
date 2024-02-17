@@ -11,9 +11,8 @@ export default function ResultList({searchResults}: any) {
     const [results, setResults] = useState<any[]>(searchResults);
 
     useEffect(() => {
-        // Update the local state when props change
         setResults(searchResults);
-    }, [searchResults]); // Run this effect whenever searchResults changes
+    }, [searchResults]);
 
     return (
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -26,13 +25,13 @@ export default function ResultList({searchResults}: any) {
                         </ListItemAvatar>
 
                         <ListItemText
-                            //there are two types of schema
+                            //there are two types of schema, use whichever field name available
                             primary={"Scientific Name: " + (result.scientificName ? result.scientificName : result.acceptedConceptName)}
                             secondary={"Common Name: " + (result.commonName ? result.commonName : result.name)}
                         />
 
                     </ListItem>
-                    {index !== results.length - 1 && <Divider variant="inset" component="li" style={{ margin: '0 5% 0 5%' }} />}
+                    <Divider variant="inset" component="li" style={{ margin: '0 5% 0 5%' }} />
                 </React.Fragment>
             ))}
         </List>
