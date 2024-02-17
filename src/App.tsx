@@ -7,17 +7,18 @@ import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination';
 
 function App() {
+  //query params
   const [searchTerm, setSearchTerm] = useState<string>('');
-
   const [startOffset, setStartOffset] = useState<number>(0);
 
+  //rendered contents
   const [results, setResults] = useState<any[]>([]);
   const [totalRecords, setTotalRecords] = useState<number>(0);
   const [curPage, setCurPage] = useState<number>(1);
 
 
   /*
-  action of page select behavior
+  action of page selection behavior
   */
   useEffect(() => {
     if(searchTerm){
