@@ -17,6 +17,7 @@ function App() {
   const [curPage, setCurPage] = useState<number>(1);
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  console.log(baseUrl);
 
 
   /*
