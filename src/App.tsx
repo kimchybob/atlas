@@ -54,7 +54,6 @@ function App() {
     .then(response => {
       setResults(response.data?.searchResults?.results);
       setTotalRecords(response.data?.searchResults?.totalRecords);
-      console.log(response);
     })
     .catch(error => {
       console.error(error);

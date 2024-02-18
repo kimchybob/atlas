@@ -18,17 +18,20 @@ export default function ResultList({searchResults}: any) {
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
             {results.map((result, index) => (
                 <React.Fragment key={index}>
-                    <ListItem alignItems="flex-start">
-
-                        <ListItemAvatar>
-                            <Avatar src={result.thumbnailUrl} />
-                        </ListItemAvatar>
+                    <ListItem alignItems="flex-start" >
 
                         <ListItemText
                             //there are two types of schema, use whichever field name available
                             primary={"Scientific Name: " + (result.scientificName ? result.scientificName : result.acceptedConceptName)}
                             secondary={"Common Name: " + (result.commonName ? result.commonName : result.name)}
                         />
+
+                        <ListItemAvatar>
+                            <Avatar 
+                                src={result.thumbnailUrl} 
+                                style={{ width: 'auto', height: '100px' }} 
+                                variant="square"/>
+                        </ListItemAvatar>
 
                     </ListItem>
                     <Divider variant="inset" component="li" style={{ margin: '0 5% 0 5%' }} />
