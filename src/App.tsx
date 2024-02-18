@@ -16,6 +16,8 @@ function App() {
   const [totalRecords, setTotalRecords] = useState<number>(0);
   const [curPage, setCurPage] = useState<number>(1);
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
 
   /*
   action of page selection behavior
@@ -48,12 +50,10 @@ function App() {
 
 
   const refreshList = () => {
-      axios.get(`http://bie.ala.org.au/ws/search.json?sort=scientificName&dir=desc&q=${searchTerm}&start=${startOffset}`)
+      axios.get(`${baseUrl}?sort=scientificName&dir=desc&q=${searchTerm}&start=${startOffset}`)
       .then(response => {
         setResults(response.data?.searchResults?.results);
         setTotalRecords(response.data?.searchResults?.totalRecords);
-        console.log(response.data);
-        console.log(curPage);
       })
       .catch(error => {
         console.error(error);
@@ -89,7 +89,7 @@ function App() {
   };
 
   const handleDownload = () => {
-    axios.get(`http://bie.ala.org.au/ws/search.json?sort=scientificName&dir=desc&q=${searchTerm}&pageSize=100`)
+    axios.get(`${baseUrl}?sort=scientificName&dir=desc&q=${searchTerm}&pageSize=100`)
       .then(response => {
         let speciesArray = response.data?.searchResults?.results;
         if(speciesArray){ //avoid unexpected payload causing undefined
