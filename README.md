@@ -4,6 +4,18 @@ This project was bootstrapped with React.
 
 ## Steps to run this project
 
+### Option 1:
+
+### This project is now deployed to and accessiable from:
+
+https://atlas-zeta-lemon.vercel.app/
+
+<br><br>
+
+### Option 2:
+
+### Try it on your loacl machine
+
 In the project directory, you can run:
 
 ### Step 1: `npm install`
@@ -25,7 +37,7 @@ The initial page should be like below:
 
 The text field will accept input as keyword, once search button is hit, a list of relavant result will be displayed.
 
-![alt text](image-1.png)
+![alt text](image-4.png)
 
 Each page will show 10 results by default, use Pagination at the bottom to switch between pages:
 ![alt text](image-2.png)
