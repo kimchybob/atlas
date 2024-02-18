@@ -50,14 +50,14 @@ function App() {
 
 
   const refreshList = () => {
-      axios.get(`${baseUrl}?sort=scientificName&dir=desc&q=${searchTerm}&start=${startOffset}`)
-      .then(response => {
-        setResults(response.data?.searchResults?.results);
-        setTotalRecords(response.data?.searchResults?.totalRecords);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    axios.get(`${baseUrl}?sort=scientificName&dir=desc&q=${searchTerm}&start=${startOffset}`)
+    .then(response => {
+      setResults(response.data?.searchResults?.results);
+      setTotalRecords(response.data?.searchResults?.totalRecords);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   const toCsv = (speciesArray: any[]) => {
