@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { FormEvent } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
     searchBar:{
-        justifyContent: 'center', /* Center horizontally */
+        justifyContent: 'center',
         alignItems: 'center',
         margin: "5%"
     },
@@ -20,24 +20,26 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function SearchBar({ setSearchTerm }: any) {
-    const inputRef = useRef<HTMLInputElement>(null);
     const classes = useStyles();
 
-    const handleClick = () => {
-        if (inputRef.current) {
-          setSearchTerm(inputRef.current.value);
-        }
+    const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const keywordInput = event.currentTarget.elements.namedItem(
+            'keywordInput'
+        ) as HTMLInputElement;
+        setSearchTerm(keywordInput.value);
       };
 
     return (
-        <div className={classes.searchBar}>
+        <form onSubmit={handleSearch} className={classes.searchBar}>
             <Grid container spacing={1} >
 
                 <Grid item xs={10}>
                     <TextField 
                         label="Keyword"
                         variant="outlined"
-                        inputRef={inputRef}
+                        id="keywordInput"
+                        type="text"
                         fullWidth
                     />
                 </Grid>
@@ -46,13 +48,14 @@ export default function SearchBar({ setSearchTerm }: any) {
                     <Button 
                         variant="contained" 
                         className={classes.searchButton}
-                        onClick={handleClick}
+                        type="submit"
                     >
                         Search
                     </Button>
                 </Grid>
-                
+
             </Grid>
-        </div>
+        </form>
+        
     );
 }
