@@ -55,7 +55,6 @@ function App() {
     .then(response => {
       setResults(response.data?.searchResults?.results);
       setTotalRecords(response.data?.searchResults?.totalRecords);
-      console.log(response);
     })
     .catch(error => {
       console.error(error);
@@ -120,7 +119,7 @@ function App() {
           <Pagination 
             className="pagination" 
             //since the api call will return 10 records by default, calculate max page number based on totalRecords
-            count={Math.floor(totalRecords/10) + (totalRecords%10 == 0 ? 0 : 1)} 
+            count={Math.floor(totalRecords/10) + (totalRecords%10 === 0 ? 0 : 1)} 
             page={curPage}
             onChange={handlePageChange}/>
         </div>

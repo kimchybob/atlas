@@ -11,11 +11,8 @@ const useStyles = makeStyles(() => ({
         margin: "5%"
     },
     searchButton: {
-        width: 'auto',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: 'fit-content',
+        height: '100%'
     },
 }));
 
@@ -32,7 +29,11 @@ export default function SearchBar({ setSearchTerm }: any) {
 
     return (
         <form onSubmit={handleSearch} className={classes.searchBar}>
-            <Grid container spacing={1} >
+            <Grid 
+                container 
+                justifyContent="center"
+                direction="row"
+                spacing={1}>
 
                 <Grid item xs={10}>
                     <TextField 
@@ -44,7 +45,7 @@ export default function SearchBar({ setSearchTerm }: any) {
                     />
                 </Grid>
 
-                <Grid item xs={1}>
+                <Grid item xs>
                     <Button 
                         variant="contained" 
                         className={classes.searchButton}

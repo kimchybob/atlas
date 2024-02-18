@@ -15,14 +15,10 @@ export default function ResultList({searchResults}: any) {
     }, [searchResults]);
 
     return (
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <List>
             {results.map((result, index) => (
                 <React.Fragment key={index}>
-                    <ListItem alignItems="flex-start">
-
-                        <ListItemAvatar>
-                            <Avatar src={result.thumbnailUrl} />
-                        </ListItemAvatar>
+                    <ListItem alignItems="flex-start" >
 
                         <ListItemText
                             //there are two types of schema, use whichever field name available
@@ -30,11 +26,17 @@ export default function ResultList({searchResults}: any) {
                             secondary={"Common Name: " + (result.commonName ? result.commonName : result.name)}
                         />
 
+                        <ListItemAvatar>
+                            <Avatar 
+                                src={result.thumbnailUrl} 
+                                style={{ width: 'auto', height: '100px' }} //use style to overwrite default css
+                                variant="square"/>
+                        </ListItemAvatar>
+
                     </ListItem>
-                    <Divider variant="inset" component="li" style={{ margin: '0 5% 0 5%' }} />
+                    <Divider variant="inset" component="li" style={{ margin: '0' }} />
                 </React.Fragment>
             ))}
-        </List>
-        
+        </List>  
     );
 };
