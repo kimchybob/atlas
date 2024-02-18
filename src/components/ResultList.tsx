@@ -15,7 +15,7 @@ export default function ResultList({searchResults}: any) {
     }, [searchResults]);
 
     return (
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <List>
             {results.map((result, index) => (
                 <React.Fragment key={index}>
                     <ListItem alignItems="flex-start" >
@@ -29,15 +29,14 @@ export default function ResultList({searchResults}: any) {
                         <ListItemAvatar>
                             <Avatar 
                                 src={result.thumbnailUrl} 
-                                style={{ width: 'auto', height: '100px' }} 
+                                style={{ width: 'auto', height: '100px' }} //use style to overwrite default css
                                 variant="square"/>
                         </ListItemAvatar>
 
                     </ListItem>
-                    <Divider variant="inset" component="li" style={{ margin: '0 5% 0 5%' }} />
+                    <Divider variant="inset" component="li" style={{ margin: '0' }} />
                 </React.Fragment>
             ))}
-        </List>
-        
+        </List>  
     );
 };
